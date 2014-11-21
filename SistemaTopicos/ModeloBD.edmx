@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SistemaTopicosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SistemaTopicosModelStoreContainer">
+          <EntitySet Name="Estados" EntityType="SistemaTopicosModel.Store.Estados" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Piezas" EntityType="SistemaTopicosModel.Store.Piezas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TiposTablilla" EntityType="SistemaTopicosModel.Store.TiposTablilla" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Piezas_Estados" Association="SistemaTopicosModel.Store.FK_Piezas_Estados">
+            <End Role="TiposTablilla" EntitySet="TiposTablilla" />
+            <End Role="Piezas" EntitySet="Piezas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Piezas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProveedor" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="EstadoFk" Type="int" Nullable="false" />
+          <Property Name="CodigoProceso" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ResultadosFk" Type="int" />
+          <Property Name="TipoFk" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TiposTablilla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Piezas_Estados">
+          <End Role="TiposTablilla" Type="SistemaTopicosModel.Store.TiposTablilla" Multiplicity="1" />
+          <End Role="Piezas" Type="SistemaTopicosModel.Store.Piezas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTablilla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Piezas">
+              <PropertyRef Name="TipoFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaTopicosModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SistemaTopicosEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Estados" EntityType="SistemaTopicosModel.Estados" />
+          <EntitySet Name="Piezas" EntityType="SistemaTopicosModel.Piezas" />
+          <AssociationSet Name="FK_Piezas_Estados" Association="SistemaTopicosModel.FK_Piezas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Piezas" EntitySet="Piezas" />
+          </AssociationSet>
+          <EntitySet Name="TiposTablilla" EntityType="SistemaTopicosModel.TiposTablilla" />
+          <AssociationSet Name="FK_Piezas_Estados1" Association="SistemaTopicosModel.FK_Piezas_Estados1">
+            <End Role="TiposTablilla" EntitySet="TiposTablilla" />
+            <End Role="Piezas" EntitySet="Piezas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Piezas" Relationship="SistemaTopicosModel.FK_Piezas_Estados" FromRole="Estados" ToRole="Piezas" />
+        </EntityType>
+        <EntityType Name="Piezas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoProveedor" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstadoFk" Type="Int32" Nullable="false" />
+          <Property Name="CodigoProceso" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ResultadosFk" Type="Int32" />
+          <NavigationProperty Name="Estados" Relationship="SistemaTopicosModel.FK_Piezas_Estados" FromRole="Piezas" ToRole="Estados" />
+          <Property Type="String" Name="TipoFk" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TiposTablilla" Relationship="SistemaTopicosModel.FK_Piezas_Estados1" FromRole="Piezas" ToRole="TiposTablilla" />
+        </EntityType>
+        <Association Name="FK_Piezas_Estados">
+          <End Role="Estados" Type="SistemaTopicosModel.Estados" Multiplicity="1" />
+          <End Role="Piezas" Type="SistemaTopicosModel.Piezas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Piezas">
+              <PropertyRef Name="EstadoFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TiposTablilla">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Piezas" Relationship="SistemaTopicosModel.FK_Piezas_Estados1" FromRole="TiposTablilla" ToRole="Piezas" />
+        </EntityType>
+        <Association Name="FK_Piezas_Estados1">
+          <End Type="SistemaTopicosModel.TiposTablilla" Role="TiposTablilla" Multiplicity="1" />
+          <End Type="SistemaTopicosModel.Piezas" Role="Piezas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTablilla">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Piezas">
+              <PropertyRef Name="TipoFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaTopicosModelStoreContainer" CdmEntityContainer="SistemaTopicosEntities">
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="SistemaTopicosModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Piezas">
+            <EntityTypeMapping TypeName="SistemaTopicosModel.Piezas">
+              <MappingFragment StoreEntitySet="Piezas">
+                <ScalarProperty Name="TipoFk" ColumnName="TipoFk" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodigoProveedor" ColumnName="CodigoProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="EstadoFk" ColumnName="EstadoFk" />
+                <ScalarProperty Name="CodigoProceso" ColumnName="CodigoProceso" />
+                <ScalarProperty Name="ResultadosFk" ColumnName="ResultadosFk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposTablilla">
+            <EntityTypeMapping TypeName="SistemaTopicosModel.TiposTablilla">
+              <MappingFragment StoreEntitySet="TiposTablilla">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
